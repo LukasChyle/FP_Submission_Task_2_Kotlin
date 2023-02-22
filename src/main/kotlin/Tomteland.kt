@@ -4,7 +4,7 @@ fun main() {
         println("\nVems undersåtar vill du få listade?")
         val input = readln()
         if (input.isBlank()) break
-        println(tomteland.getUnderlings(input, mutableListOf()))
+        println(tomteland.getUnderling2(input))
     }
 }
 
@@ -19,12 +19,27 @@ class Tomteland {
         "Myran" to listOf("Bladlusen")
     )
 
+    /*  ---------------- Version 1 ----------------  */
     fun getUnderlings(currentName: String, res: MutableList<String>): List<String> {
         val underlings = hierarchy[currentName]
         if (underlings != null) {
             res.addAll(underlings)
             underlings.forEach { getUnderlings(it, res) }
         }
+        return res.toList()
+    }
+
+    /*  ---------------- Version 2 ----------------  */
+    fun getUnderling2(name: String): List<String> {
+        val res: MutableList<String> = mutableListOf()
+
+        fun processHierarchy(currentName: String) {
+            hierarchy[currentName]?.forEach {
+                res.add(it)
+                processHierarchy (it) }
+        }
+
+        processHierarchy(name)
         return res.toList()
     }
 }
