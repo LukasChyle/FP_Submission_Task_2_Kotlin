@@ -20,13 +20,14 @@ class Tomteland {
     )
 
     /*  ---------------- Version 1 ----------------  */
+    // Solution that don't require any change of the pre-made test-code from the teacher.
     fun getUnderlings(currentName: String, res: MutableList<String>): List<String> {
         val underlings = hierarchy[currentName]
         if (underlings != null) {
             res.addAll(underlings)
             underlings.forEach { getUnderlings(it, res) }
         }
-        return res.toList()
+        return res
     }
 
     /*  ---------------- Version 2 ----------------  */
@@ -40,6 +41,6 @@ class Tomteland {
         }
 
         processHierarchy(name)
-        return res.toList()
+        return res
     }
 }
